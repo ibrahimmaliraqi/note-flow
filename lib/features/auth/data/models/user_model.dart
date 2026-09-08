@@ -2,8 +2,9 @@
 
 import 'package:noteflow/features/auth/domain/entities/user_entity.dart';
 
-class UserMode extends UserEntity {
-  UserMode({
+class UserModel extends UserEntity {
+  UserModel({
+    required super.id,
     required super.name,
     required super.email,
     required super.createAt,
@@ -12,6 +13,7 @@ class UserMode extends UserEntity {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'name': name,
       'email': email,
       'createAt': createAt,
@@ -19,8 +21,9 @@ class UserMode extends UserEntity {
     };
   }
 
-  factory UserMode.fromMap(Map<String, dynamic> map) {
-    return UserMode(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
+      id: map['id'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
       createAt: map['createAt'] as String,

@@ -17,6 +17,13 @@ class CreateUserModel extends CreateUserEntity {
     };
   }
 
+  factory CreateUserModel.fromEntity(CreateUserEntity entity) {
+    return CreateUserModel(
+      name: entity.name,
+      email: entity.email,
+      password: entity.password,
+    );
+  }
   factory CreateUserModel.fromMap(Map<String, dynamic> map) {
     return CreateUserModel(
       name: map['name'] as String,

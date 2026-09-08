@@ -15,6 +15,13 @@ class LoginUserModel extends LoginUserEntity {
     };
   }
 
+  factory LoginUserModel.fromEntity(LoginUserEntity entity) {
+    return LoginUserModel(
+      email: entity.email,
+      password: entity.password,
+    );
+  }
+
   factory LoginUserModel.fromMap(Map<String, dynamic> map) {
     return LoginUserModel(
       email: map['email'] as String,

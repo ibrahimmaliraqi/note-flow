@@ -1,9 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_theme.dart';
+import 'package:noteflow/core/utils/service_locator.dart';
+import 'package:noteflow/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  setupLocator();
   runApp(const Noteflow());
 }
 
