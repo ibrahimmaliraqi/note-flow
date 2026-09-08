@@ -9,6 +9,7 @@ import 'package:noteflow/features/home/data/repositories/home_repo_impl.dart';
 import 'package:noteflow/features/home/domain/repositories/home_repo.dart';
 import 'package:noteflow/features/home/domain/usecases/add_note_usecase.dart';
 import 'package:noteflow/features/home/domain/usecases/get_notes_usercase.dart';
+import 'package:noteflow/features/profile/domain/usecases/get_prfile_data_usecase.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -36,5 +37,8 @@ void setupLocator() {
   );
   getIt.registerSingleton<GetNotesUsercase>(
     GetNotesUsercase(homeRepo: getIt.get<HomeRepo>()),
+  );
+  getIt.registerSingleton<GetProfileDataUsecase>(
+    GetProfileDataUsecase(authRepo: getIt.get<AuthRepo>()),
   );
 }

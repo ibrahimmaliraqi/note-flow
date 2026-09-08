@@ -100,7 +100,7 @@ class _LoginViewState extends State<LoginView> {
                             );
                             GoRouter.of(
                               context,
-                            ).pushReplacement(AppRouter.homeView);
+                            ).pushReplacement(AppRouter.rootView);
                           }
                           if (state is LoginFailure) {
                             Snack.showError(context, state.message);
