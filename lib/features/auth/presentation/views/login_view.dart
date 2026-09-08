@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
 import 'package:noteflow/features/auth/presentation/views/signup_view.dart';
 
@@ -24,7 +25,7 @@ class LoginView extends StatelessWidget {
                     size: 80,
                     color: AppColors.primary,
                   ),
-                  const SizedBox(height: 24),
+                  const Gap(24),
                   const Text(
                     'مرحباً بعودتك',
                     style: TextStyle(
@@ -34,7 +35,7 @@ class LoginView extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 8),
+                  const Gap(8),
                   const Text(
                     'سجل الدخول للوصول إلى ملاحظاتك',
                     style: TextStyle(
@@ -43,7 +44,7 @@ class LoginView extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 32),
+                  const Gap(32),
                   TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     style: const TextStyle(color: AppColors.textPrimary),
@@ -75,7 +76,7 @@ class LoginView extends StatelessWidget {
                       fillColor: AppColors.inputFill,
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const Gap(16),
                   TextFormField(
                     obscureText: true,
                     style: const TextStyle(color: AppColors.textPrimary),
@@ -107,7 +108,7 @@ class LoginView extends StatelessWidget {
                       fillColor: AppColors.inputFill,
                     ),
                   ),
-                  const SizedBox(height: 32),
+                  const Gap(32),
                   FilledButton(
                     onPressed: () {},
                     style: FilledButton.styleFrom(
@@ -126,7 +127,7 @@ class LoginView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 16),
+                  const Gap(16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

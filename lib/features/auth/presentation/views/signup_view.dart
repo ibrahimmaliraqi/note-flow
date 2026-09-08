@@ -1,8 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
+import 'package:noteflow/core/widgets/custom_button.dart';
+import 'package:noteflow/core/widgets/text_field.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   const SignupView({super.key});
+
+  @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  GlobalKey<FormState> vali = GlobalKey();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,90 +48,67 @@ class SignupView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Directionality(
               textDirection: TextDirection.rtl,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    'انضم إلينا',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'سجل الآن لتبدأ في حفظ أفكارك',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.textSecondary,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 32),
-                  _buildTextField(
-                    label: 'الاسم الكامل',
-                    icon: Icons.person_outline,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildTextField(
-                    label: 'البريد الإلكتروني',
-                    icon: Icons.email_outlined,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildTextField(
-                    label: 'كلمة المرور',
-                    icon: Icons.lock_outline,
-                    isPassword: true,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildTextField(
-                    label: 'تأكيد كلمة المرور',
-                    icon: Icons.lock_reset_outlined,
-                    isPassword: true,
-                  ),
-                  const SizedBox(height: 32),
-                  FilledButton(
-                    onPressed: () {},
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'إنشاء الحساب',
+              child: Form(
+                key: vali,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      'انضم إلينا',
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 28,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                        color: AppColors.textPrimary,
                       ),
+                      textAlign: TextAlign.center,
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'لديك حساب بالفعل؟',
-                        style: TextStyle(color: AppColors.textSecondary),
+                    const Gap(8),
+                    const Text(
+                      'سجل الآن لتبدأ في حفظ أفكارك',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.textSecondary,
                       ),
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        style: TextButton.styleFrom(
-                          foregroundColor: AppColors.primaryDark,
-                        ),
-                        child: const Text(
-                          'تسجيل الدخول',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      textAlign: TextAlign.center,
+                    ),
+                    const Gap(32),
+
+                    // استخدام الـ Widget المستقل هنا
+                    CustomTextField(
+                      controller: nameController,
+                      label: 'الاسم الكامل',
+                      icon: Icons.person_outline,
+                    ),
+                    const Gap(16),
+
+                    CustomTextField(
+                      controller: emailController,
+                      label: 'البريد الإلكتروني',
+                      icon: Icons.email_outlined,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    const Gap(16),
+
+                    CustomTextField(
+                      controller: passwordController,
+                      label: 'كلمة المرور',
+                      icon: Icons.lock_outline,
+                      isPassword: true,
+                    ),
+                    const Gap(16),
+
+                    const Gap(32),
+                    CustomButton(
+                      title: 'إنشاء الحساب',
+                      onTap: () {
+                        if (vali.currentState!.validate()) {}
+                      },
+                    ),
+                    const Gap(16),
+
+                    haveAccount(context),
+                  ],
+                ),
               ),
             ),
           ),
@@ -119,35 +117,25 @@ class SignupView extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField({
-    required String label,
-    required IconData icon,
-    bool isPassword = false,
-    TextInputType keyboardType = TextInputType.text,
-  }) {
-    return TextFormField(
-      obscureText: isPassword,
-      keyboardType: keyboardType,
-      style: const TextStyle(color: AppColors.textPrimary),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: const TextStyle(color: AppColors.textSecondary),
-        prefixIcon: Icon(icon, color: AppColors.textSecondary),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border),
+  Row haveAccount(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text(
+          'لديك حساب بالفعل؟',
+          style: TextStyle(color: AppColors.textSecondary),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.border),
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          style: TextButton.styleFrom(
+            foregroundColor: AppColors.primaryDark,
+          ),
+          child: const Text(
+            'تسجيل الدخول',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
-        ),
-        filled: true,
-        fillColor: AppColors.inputFill,
-      ),
+      ],
     );
   }
 }
