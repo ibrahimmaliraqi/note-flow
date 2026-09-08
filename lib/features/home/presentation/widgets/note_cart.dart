@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
 import 'package:noteflow/core/widgets/custom_text.dart';
 
@@ -37,6 +38,15 @@ class NoteCard extends StatelessWidget {
                 fontSize: 14,
                 color: AppColors.textSecondary,
                 maxLines: 2, // عرض سطرين فقط من المحتوى
+              ),
+              const Gap(8),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: CustomText(
+                  text: "منذ ساعتين",
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                ),
               ),
             ],
           ),
