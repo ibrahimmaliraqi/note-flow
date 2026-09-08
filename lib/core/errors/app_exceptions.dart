@@ -7,7 +7,7 @@ abstract class AppException implements Exception {
 
   @override
   String toString() {
-    return 'AppException: $message';
+    return message;
   }
 }
 

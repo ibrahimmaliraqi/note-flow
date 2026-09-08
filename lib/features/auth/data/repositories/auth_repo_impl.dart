@@ -4,8 +4,10 @@ import 'package:noteflow/core/errors/failure.dart';
 import 'package:noteflow/features/auth/data/datasources/auth_remote.dart';
 import 'package:noteflow/features/auth/data/models/create_user_model.dart';
 import 'package:noteflow/features/auth/data/models/login_user_model.dart';
+import 'package:noteflow/features/auth/data/models/user_model.dart';
 import 'package:noteflow/features/auth/domain/entities/create_user_entity.dart';
 import 'package:noteflow/features/auth/domain/entities/login_user_entity.dart';
+import 'package:noteflow/features/auth/domain/entities/user_entity.dart';
 import 'package:noteflow/features/auth/domain/repositories/auth_repo.dart';
 
 class AuthRepoImpl implements AuthRepo {
@@ -16,6 +18,11 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, String>> login({required LoginUserEntity user}) async {
     try {
       final res = await authRemote.login(user: LoginUserModel.fromEntity(user));
+      final ress = await getUser(userId: res);
+      ress.fold(
+        (l) => ServerFailure("فشل جلب البيانات"),
+        (r) => saveUser(user: r),
+      );
       return right(res);
     } on AppException catch (e) {
       return left(ServerFailure(e.toString()));
@@ -23,16 +30,38 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<Either<Failure, String>> signUp({
+  Future<Either<Failure, UserEntity>> signUp({
     required CreateUserEntity user,
   }) async {
     try {
       final res = await authRemote.signUp(
         user: CreateUserModel.fromEntity(user),
       );
+      await addUser(user: UserModel.fromEntity(user: res));
       return right(res);
     } on AppException catch (e) {
       return left(ServerFailure(e.toString()));
     }
+  }
+
+  @override
+  Future<void> addUser({required UserEntity user}) async {
+    await authRemote.addUser(user: UserModel.fromEntity(user: user));
+    await saveUser(user: user);
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getUser({required String userId}) async {
+    try {
+      final res = await authRemote.getUser(userId: userId);
+      return right(res);
+    } on AppException catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<void> saveUser({required UserEntity user}) async {
+    await authRemote.saveUser(user: UserModel.fromEntity(user: user));
   }
 }

@@ -25,6 +25,14 @@ class _LoginViewState extends State<LoginView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   GlobalKey<FormState> vali = GlobalKey();
+
+  @override
+  void initState() {
+    emailController.text = 'ibrahom0780@gmail.com';
+    passwordController.text = '07700770';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

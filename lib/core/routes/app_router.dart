@@ -5,7 +5,7 @@ import 'package:noteflow/splash_view.dart';
 
 class AppRouter {
   static String homeView = '/homeView';
-  static String loginView = '/homeView';
+  static String loginView = '/loginView';
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -17,7 +17,7 @@ class AppRouter {
         builder: (context, state) => HomeView(),
       ),
       GoRoute(
-        path: homeView,
+        path: loginView,
         builder: (context, state) => LoginView(),
       ),
     ],

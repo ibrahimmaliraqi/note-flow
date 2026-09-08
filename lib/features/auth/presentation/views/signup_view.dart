@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
 import 'package:noteflow/core/utils/service_locator.dart';
 import 'package:noteflow/core/widgets/custom_button.dart';
@@ -116,6 +118,9 @@ class _SignupViewState extends State<SignupView> {
                               context,
                               'تم إنشاء الحساب بنجاح',
                             );
+                            GoRouter.of(
+                              context,
+                            ).pushReplacement(AppRouter.loginView);
                           }
                           if (state is SignUpFailure) {
                             Snack.showError(context, state.message);

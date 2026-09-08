@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:noteflow/core/helper/prefs_helper.dart';
 import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_theme.dart';
 import 'package:noteflow/core/utils/service_locator.dart';
@@ -11,6 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  PrefsHelper.init();
   setupLocator();
   runApp(const Noteflow());
 }

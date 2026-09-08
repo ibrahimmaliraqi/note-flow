@@ -8,7 +8,7 @@ final class SignUpInitial extends SignUpState {}
 final class SignUpLoading extends SignUpState {}
 
 final class SignUpSuccess extends SignUpState {
-  final String user;
+  final UserEntity user;
 
   SignUpSuccess(this.user);
 }

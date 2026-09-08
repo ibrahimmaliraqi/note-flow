@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:noteflow/core/helper/prefs_helper.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
 import 'package:noteflow/core/widgets/custom_text.dart';
 
@@ -43,8 +45,10 @@ class _HomeViewState extends State<HomeView> {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout_rounded, color: AppColors.error),
-            onPressed: () {
-              // سيتم وضع كود تسجيل الخروج هنا لاحقاً
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              print("object");
+              print(FirebaseAuth.instance.currentUser?.uid ?? "ماكو");
             },
           ),
         ],
@@ -56,7 +60,11 @@ class _HomeViewState extends State<HomeView> {
       // زر الإضافة العائم
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // سيتم الانتقال لشاشة إضافة ملاحظة هنا
+          print(PrefsHelper.getUser()!.email);
+          print(PrefsHelper.getUser()!.id);
+          print(PrefsHelper.getUser()!.name);
+          print(PrefsHelper.getUser()!.createAt);
+          print(PrefsHelper.getUser()!.image);
         },
         backgroundColor: AppColors.primary,
         elevation: 2,

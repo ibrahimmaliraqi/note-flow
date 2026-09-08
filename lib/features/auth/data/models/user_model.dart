@@ -7,8 +7,8 @@ class UserModel extends UserEntity {
     required super.id,
     required super.name,
     required super.email,
-    required super.createAt,
-    required super.image,
+    super.createAt,
+    super.image,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,6 +21,15 @@ class UserModel extends UserEntity {
     };
   }
 
+  factory UserModel.fromEntity({required UserEntity user}) {
+    return UserModel(
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      createAt: user.createAt,
+      image: user.image,
+    );
+  }
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       id: map['id'] as String,
