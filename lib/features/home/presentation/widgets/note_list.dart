@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:noteflow/features/home/domain/entities/note_entity.dart';
-import 'package:noteflow/features/home/presentation/widgets/note_carddart';
+import 'package:noteflow/features/home/presentation/widgets/note_card.dart';
 
 class NotesList extends StatelessWidget {
   final List<NoteEntity> notes;

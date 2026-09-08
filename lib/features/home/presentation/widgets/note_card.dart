@@ -23,7 +23,7 @@ class NoteCard extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(16),
-        onTap: () {},
+        onTap: () async {},
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
