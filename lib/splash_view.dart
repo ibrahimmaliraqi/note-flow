@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
   void _navigateToLogin() {
     Future.delayed(const Duration(seconds: 3), () {
       if (FirebaseAuth.instance.currentUser != null) {
-        GoRouter.of(context).pushReplacement(AppRouter.homeView);
+        GoRouter.of(context).pushReplacement(AppRouter.rootView);
       } else {
         GoRouter.of(context).pushReplacement(AppRouter.loginView);
       }
