@@ -13,15 +13,9 @@ class LoginCubit extends Cubit<LoginState> {
   }) : super(LoginInitial());
 
   Future<void> login({
-    required String email,
-    required String password,
+    required LoginUserEntity user,
   }) async {
     emit(LoginLoading());
-
-    final user = LoginUserEntity(
-      email: email,
-      password: password,
-    );
 
     final result = await loginUseCase.call(user: user);
 

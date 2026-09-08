@@ -12,18 +12,8 @@ class SignUpCubit extends Cubit<SignUpState> {
     required this.signUpUseCase,
   }) : super(SignUpInitial());
 
-  Future<void> signUp({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
+  Future<void> signUp({required CreateUserEntity user}) async {
     emit(SignUpLoading());
-
-    final user = CreateUserEntity(
-      name: name,
-      email: email,
-      password: password,
-    );
 
     final result = await signUpUseCase(
       user: user,

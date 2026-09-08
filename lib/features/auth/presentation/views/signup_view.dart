@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
 import 'package:noteflow/core/utils/service_locator.dart';
 import 'package:noteflow/core/widgets/custom_button.dart';
+import 'package:noteflow/core/widgets/loading.dart';
+import 'package:noteflow/core/widgets/snack.dart';
 import 'package:noteflow/core/widgets/text_field.dart';
+import 'package:noteflow/features/auth/domain/entities/create_user_entity.dart';
 import 'package:noteflow/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:noteflow/features/auth/presentation/manager/sign_up/sign_up_cubit.dart';
 
@@ -105,10 +109,36 @@ class _SignupViewState extends State<SignupView> {
                       const Gap(16),
 
                       const Gap(32),
-                      CustomButton(
-                        title: 'إنشاء الحساب',
-                        onTap: () {
-                          if (vali.currentState!.validate()) {}
+                      BlocConsumer<SignUpCubit, SignUpState>(
+                        listener: (context, state) {
+                          if (state is SignUpSuccess) {
+                            Snack.showSuccess(
+                              context,
+                              'تم إنشاء الحساب بنجاح',
+                            );
+                          }
+                          if (state is SignUpFailure) {
+                            Snack.showError(context, state.message);
+                          }
+                        },
+                        builder: (context, state) {
+                          if (state is SignUpLoading) {
+                            return Loading();
+                          }
+                          return CustomButton(
+                            title: 'إنشاء الحساب',
+                            onTap: () {
+                              if (vali.currentState!.validate()) {
+                                context.read<SignUpCubit>().signUp(
+                                  user: CreateUserEntity(
+                                    name: nameController.text,
+                                    email: emailController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                  ),
+                                );
+                              }
+                            },
+                          );
                         },
                       ),
                       const Gap(16),
