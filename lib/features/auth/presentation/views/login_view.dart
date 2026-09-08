@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
 import 'package:noteflow/core/utils/service_locator.dart';
 import 'package:noteflow/core/widgets/custom_button.dart';
@@ -88,6 +90,9 @@ class _LoginViewState extends State<LoginView> {
                               context,
                               'تم تسجيل الدخول بنجاح',
                             );
+                            GoRouter.of(
+                              context,
+                            ).pushReplacement(AppRouter.homeView);
                           }
                           if (state is LoginFailure) {
                             Snack.showError(context, state.message);
