@@ -32,6 +32,7 @@ class HomeFirebaseRemoteImpl implements HomeRemote {
       final res = await collection
           .doc(PrefsHelper.getUser()!.id)
           .collection(AppConstants.dbNote)
+          .orderBy("createAt", descending: true)
           .get();
       return res.docs.map((e) => NoteModel.fromMap(e.data())).toList();
     } on FirebaseException catch (e) {

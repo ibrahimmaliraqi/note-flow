@@ -93,6 +93,8 @@ class _AddNoteBottomSheetState extends State<AddNoteBottomSheet> {
                   listener: (context, state) {
                     if (state is AddNoteSuccess) {
                       GoRouter.of(context).pop();
+                      context.read<GetNotesCubit>().getNotes();
+
                       Snack.showSuccess(context, state.message);
                     } else if (state is AddNoteFailure) {
                       Snack.showError(context, state.message);
@@ -112,7 +114,6 @@ class _AddNoteBottomSheetState extends State<AddNoteBottomSheet> {
                             createAt: DateTime.now().toString(),
                           );
                           context.read<AddNoteCubit>().addNote(addNote: note);
-                          context.read<GetNotesCubit>().getNotes();
                         }
                       },
                     );
