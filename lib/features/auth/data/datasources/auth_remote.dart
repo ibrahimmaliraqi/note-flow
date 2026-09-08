@@ -40,7 +40,6 @@ class AuthFirebaseDataSource implements AuthRemote {
           message: 'تعذر الحصول على بيانات المستخدم',
         );
       }
-
       return firebaseUser.uid;
     } on FirebaseAuthException catch (e) {
       throw AppFirebaseAuthException.fromCode(e.code);
@@ -91,7 +90,7 @@ class AuthFirebaseDataSource implements AuthRemote {
 
   @override
   Future<void> addUser({required UserModel user}) async {
-    await collection.add(user.toMap());
+    await collection.doc(user.id).set(user.toMap());
   }
 
   @override

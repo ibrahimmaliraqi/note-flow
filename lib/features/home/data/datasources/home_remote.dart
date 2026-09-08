@@ -14,6 +14,8 @@ class HomeFirebaseRemoteImpl implements HomeRemote {
   @override
   Future<String> addNote({required NoteModel addNote}) async {
     try {
+      print("locallllllllll");
+      print(PrefsHelper.getUser()!.id);
       await collection
           .doc(PrefsHelper.getUser()!.id)
           .collection(AppConstants.dbNote)

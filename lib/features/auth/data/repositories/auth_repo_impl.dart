@@ -18,10 +18,21 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, String>> login({required LoginUserEntity user}) async {
     try {
       final res = await authRemote.login(user: LoginUserModel.fromEntity(user));
+      print("sssssss");
+      print(res);
+
       final ress = await getUser(userId: res);
       ress.fold(
-        (l) => ServerFailure("فشل جلب البيانات"),
-        (r) => saveUser(user: r),
+        (l) {
+          print("llllllll");
+          print(l.message);
+          ServerFailure("فشل جلب البيانات");
+        },
+        (r) async {
+          print("rrrrrrrrrrr");
+          print(r.id);
+          await saveUser(user: r);
+        },
       );
       return right(res);
     } on AppException catch (e) {
@@ -62,6 +73,8 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<void> saveUser({required UserEntity user}) async {
+    print("ennnnnnnnn");
+    print(user.id);
     await authRemote.saveUser(user: UserModel.fromEntity(user: user));
   }
 }

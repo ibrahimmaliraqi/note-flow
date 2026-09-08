@@ -114,13 +114,13 @@ class _SignupViewState extends State<SignupView> {
                       BlocConsumer<SignUpCubit, SignUpState>(
                         listener: (context, state) {
                           if (state is SignUpSuccess) {
+                            GoRouter.of(
+                              context,
+                            ).pushReplacement(AppRouter.loginView);
                             Snack.showSuccess(
                               context,
                               'تم إنشاء الحساب بنجاح',
                             );
-                            GoRouter.of(
-                              context,
-                            ).pushReplacement(AppRouter.loginView);
                           }
                           if (state is SignUpFailure) {
                             Snack.showError(context, state.message);

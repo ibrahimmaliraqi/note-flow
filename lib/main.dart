@@ -7,6 +7,10 @@ import 'package:noteflow/core/helper/prefs_helper.dart';
 import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_theme.dart';
 import 'package:noteflow/core/utils/service_locator.dart';
+import 'package:noteflow/features/home/domain/usecases/add_note_usecase.dart';
+import 'package:noteflow/features/home/domain/usecases/get_notes_usercase.dart';
+import 'package:noteflow/features/home/presentation/manager/add_note/add_note_cubit.dart';
+import 'package:noteflow/features/home/presentation/manager/get_notes/get_notes_cubit.dart';
 import 'package:noteflow/firebase_options.dart';
 
 void main() async {
@@ -27,17 +31,29 @@ class Noteflow extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: AppTheme.lightTheme,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      locale: Locale("ar"),
-      supportedLocales: [
-        Locale('en'), // English
-        Locale('ar'), // Spanish
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              GetNotesCubit(getNotesUsercase: getIt.get<GetNotesUsercase>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              AddNoteCubit(addNoteUsecase: getIt.get<AddNoteUsecase>()),
+        ),
       ],
-      debugShowCheckedModeBanner: false,
-      routerConfig: AppRouter.router,
-      title: 'Flutter Demo',
+      child: MaterialApp.router(
+        theme: AppTheme.lightTheme,
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
+        locale: Locale("ar"),
+        supportedLocales: [
+          Locale('en'), // English
+          Locale('ar'), // Spanish
+        ],
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRouter.router,
+        title: 'Flutter Demo',
+      ),
     );
   }
 }
