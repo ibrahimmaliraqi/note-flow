@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:noteflow/core/routes/app_router.dart';
@@ -19,12 +20,11 @@ class _SplashViewState extends State<SplashView> {
 
   void _navigateToLogin() {
     Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).pushReplacement(AppRouter.loginView);
-
-      // if (FirebaseAuth.instance.currentUser != null) {
-      //   GoRouter.of(context).pushReplacement(AppRouter.homeView);
-      // } else {
-      // }
+      if (FirebaseAuth.instance.currentUser != null) {
+        GoRouter.of(context).pushReplacement(AppRouter.homeView);
+      } else {
+        GoRouter.of(context).pushReplacement(AppRouter.loginView);
+      }
     });
   }
 

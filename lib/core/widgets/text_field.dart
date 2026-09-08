@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final TextInputType keyboardType;
   final TextEditingController controller;
+  final int? maxLines;
 
   const CustomTextField({
     super.key,
@@ -15,11 +16,13 @@ class CustomTextField extends StatelessWidget {
     this.isPassword = false,
     this.keyboardType = TextInputType.text,
     required this.controller,
+    this.maxLines = 1,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines,
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
           return 'يرجى إدخال $label';
