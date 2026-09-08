@@ -28,7 +28,6 @@ class Snack {
         icon = Icons.warning_amber_rounded;
         break;
       case SnackbarType.info:
-      default:
         backgroundColor = AppColors.primary;
         icon = Icons.info_outline_rounded;
         break;

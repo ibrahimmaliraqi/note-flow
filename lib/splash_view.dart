@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_colors.dart';
-import 'package:noteflow/features/auth/presentation/views/login_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
