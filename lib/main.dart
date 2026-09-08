@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:noteflow/bloc_observer.dart';
 import 'package:noteflow/core/helper/prefs_helper.dart';
 import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_theme.dart';
@@ -13,6 +15,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   PrefsHelper.init();
+  Bloc.observer = AppBlocObserver();
+
   setupLocator();
   runApp(const Noteflow());
 }
