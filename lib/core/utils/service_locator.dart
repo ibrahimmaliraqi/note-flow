@@ -4,6 +4,7 @@ import 'package:noteflow/features/auth/data/repositories/auth_repo_impl.dart';
 import 'package:noteflow/features/auth/domain/repositories/auth_repo.dart';
 import 'package:noteflow/features/auth/domain/usecases/login_usecase.dart';
 import 'package:noteflow/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:noteflow/features/auth/domain/usecases/update_user_usecase.dart';
 import 'package:noteflow/features/home/data/datasources/home_remote.dart';
 import 'package:noteflow/features/home/data/repositories/home_repo_impl.dart';
 import 'package:noteflow/features/home/domain/repositories/home_repo.dart';
@@ -40,5 +41,8 @@ void setupLocator() {
   );
   getIt.registerSingleton<GetProfileDataUsecase>(
     GetProfileDataUsecase(authRepo: getIt.get<AuthRepo>()),
+  );
+  getIt.registerSingleton<UpdateUserUsecase>(
+    UpdateUserUsecase(authRepo: getIt.get<AuthRepo>()),
   );
 }

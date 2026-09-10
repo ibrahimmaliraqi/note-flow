@@ -18,6 +18,7 @@ abstract class AuthRemote {
   Future<void> addUser({required UserModel user});
   Future<UserModel> getUser({required String userId});
   Future<void> saveUser({required UserModel user});
+  Future<String> updateUser({required UserModel user});
 }
 
 class AuthFirebaseDataSource implements AuthRemote {
@@ -127,5 +128,17 @@ class AuthFirebaseDataSource implements AuthRemote {
   @override
   Future<void> saveUser({required UserModel user}) async {
     await PrefsHelper.saveUser(user.toMap());
+  }
+
+  @override
+  Future<String> updateUser({required UserModel user}) async {
+    try {
+      final res = await collection.doc(user.id).update(user.toMap());
+      return "تم تحديث بيانات المستخدم بنجاح";
+    } catch (e) {
+      throw ServerException(
+        message: 'حدث خطأ أثناء تحديث بيانات المستخدم.',
+      );
+    }
   }
 }

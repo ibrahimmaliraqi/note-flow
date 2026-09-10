@@ -9,5 +9,6 @@ abstract class AuthRepo {
   Future<Either<Failure, String>> login({required LoginUserEntity user});
   Future<void> addUser({required UserEntity user});
   Future<Either<Failure, UserEntity>> getUser({required String userId});
-  Future<void> saveUser({required UserEntity user});
+  Future<Either<Failure, UserEntity>> saveUser({required UserEntity user});
+  Future<Either<Failure, String>> updateUser({required UserEntity user});
 }

@@ -7,10 +7,12 @@ import 'package:noteflow/core/helper/prefs_helper.dart';
 import 'package:noteflow/core/routes/app_router.dart';
 import 'package:noteflow/core/theme/app_theme.dart';
 import 'package:noteflow/core/utils/service_locator.dart';
+import 'package:noteflow/features/auth/domain/usecases/update_user_usecase.dart';
 import 'package:noteflow/features/home/domain/usecases/add_note_usecase.dart';
 import 'package:noteflow/features/home/domain/usecases/get_notes_usercase.dart';
 import 'package:noteflow/features/home/presentation/manager/add_note/add_note_cubit.dart';
 import 'package:noteflow/features/home/presentation/manager/get_notes/get_notes_cubit.dart';
+import 'package:noteflow/features/profile/presentation/manager/update_user/update_user_cubit.dart';
 import 'package:noteflow/firebase_options.dart';
 
 void main() async {
@@ -40,6 +42,11 @@ class Noteflow extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               AddNoteCubit(addNoteUsecase: getIt.get<AddNoteUsecase>()),
+        ),
+        BlocProvider(
+          create: (context) => UpdateUserCubit(
+            updateUserUsecase: getIt.get<UpdateUserUsecase>(),
+          ),
         ),
       ],
       child: MaterialApp.router(

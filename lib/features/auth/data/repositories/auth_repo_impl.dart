@@ -72,9 +72,26 @@ class AuthRepoImpl implements AuthRepo {
   }
 
   @override
-  Future<void> saveUser({required UserEntity user}) async {
-    print("ennnnnnnnn");
-    print(user.id);
-    await authRemote.saveUser(user: UserModel.fromEntity(user: user));
+  Future<Either<Failure, UserEntity>> saveUser({required UserEntity user}) async {
+    try {
+      print("ennnnnnnnn");
+      print(user.id);
+      await authRemote.saveUser(user: UserModel.fromEntity(user: user));
+      return right(user);
+    } on AppException catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> updateUser({required UserEntity user}) async {
+    try {
+      final res = await authRemote.updateUser(
+        user: UserModel.fromEntity(user: user),
+      );
+      return right(res);
+    } on AppException catch (e) {
+      return left(ServerFailure(e.toString()));
+    }
   }
 }
